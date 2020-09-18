@@ -1,4 +1,4 @@
-# OpenCv-Facecrop
+# OpenCv - Face Crop
 
 ## NPM package to auto-detect faces in a picture and crop out the faces.
 
