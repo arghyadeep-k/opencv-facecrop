@@ -12,12 +12,12 @@
   },
   "keywords": [
     "image",
-    "image",
-    "processing",
+    "image processing",
     "face",
     "crop",
     "opencv",
-    "npm"
+    "npm",
+    "unlicense"
   ],
   "author": "Arghyadeep",
   "license": "Unlicense",

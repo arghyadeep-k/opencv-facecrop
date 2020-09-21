@@ -1,3 +1,3 @@
-const v = require('../index')
+const vanessa = require('../index')
 
-v('./test/test-file.jpg', {name: 'output.jpg', type: "image/jpeg", quality: 0.95 })
+vanessa('./test/test-file.jpg', {name: 'output.jpg', type: "image/jpeg", quality: 0.95 })
