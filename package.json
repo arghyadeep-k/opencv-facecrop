@@ -1,6 +1,6 @@
 {
   "name": "opencv-facecrop",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Npm package to autodetect and crop faces using opencv",
   "main": "index.js",
   "scripts": {
