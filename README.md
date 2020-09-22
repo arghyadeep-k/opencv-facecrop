@@ -1,8 +1,7 @@
 # OpenCv - Face Crop : Autodetect & crop faces out of an image (Node.js)
 
-<!-- ![CI](https://github.com/arghyadeep-k/vanes/workflows/CI/badge.svg?branch=master)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=arghyadeep-k_opencv-facecrop&metric=alert_status)](https://sonarcloud.io/dashboard?id=arghyadeep-k_opencv-facecrop) -->
-
+![CI](https://github.com/arghyadeep-k/opencv-facecrop/workflows/CI/badge.svg?branch=master)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=arghyadeep-k_opencv-facecrop&metric=alert_status)](https://sonarcloud.io/dashboard?id=arghyadeep-k_opencv-facecrop)
 ![npm](https://img.shields.io/npm/v/opencv-facecrop)
 ![npm bundle size](https://img.shields.io/bundlephobia/min/opencv-facecrop)
 ![Libraries.io SourceRank](https://img.shields.io/librariesio/sourcerank/npm/opencv-facecrop)
