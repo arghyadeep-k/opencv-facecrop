@@ -15,21 +15,21 @@ async function vanessa(){
 
     await facecrop('./test/test-file-2.jpg', {name: './test/output.jpg', type: "image/jpeg", quality: 0.95});
 
-    fs.stat("./test/output-1.jpg",(err) => {
-        if (err == null){
-            fs.stat("./test/output-2.jpg",(err) => {
-                if (err == null)
+    fs.stat("./test/output-1.jpg",(err1) => {
+        if (err1 == null){
+            fs.stat("./test/output-2.jpg",(err2) => {
+                if (err2 == null)
                     console.log('SUCCESS: Second Test Case Passed.');
-                else if(err.code === 'ENOENT')
-                    console.error(err +"\nERROR: File not created. Second Test Case Failed.");
+                else if(err2.code === 'ENOENT')
+                    console.error(err2 +"\nERROR: File not created. Second Test Case Failed.");
                 else
-                    console.error(err +"\nERROR: Second Test Case Failed.");
+                    console.error(err2 +"\nERROR: Second Test Case Failed.");
             });
         }            
-        else if(err.code === 'ENOENT')
-            console.error(err +"\nERROR: File not created. Second Test Case Failed.");
+        else if(err1.code === 'ENOENT')
+            console.error(err1 +"\nERROR: File not created. Second Test Case Failed.");
         else
-            console.error(err +"\nERROR: Second Test Case Failed.");
+            console.error(err1 +"\nERROR: Second Test Case Failed.");
     });
 
 }
