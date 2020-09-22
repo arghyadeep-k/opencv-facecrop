@@ -1,37 +1,38 @@
 const facecrop = require('../index')
 const fs = require('fs')
 
-async function vanessa(){
-    await facecrop('./test/test-file-1.jpg', {name: './test/output.jpg', type: "image/jpeg", quality: 0.95});
-    
-    fs.stat("./test/output.jpg",(err) => {
-        if (err == null)
-            console.log('SUCCESS: First Test Case Passed.');
-        else if(err.code === 'ENOENT')
-            console.error(err +"\nERROR: File not created. First Test Case Failed.");
-        else
-            console.error(err +"\nERROR: First Test Case Failed.");
-    });
+test('Single face detection', async() => {
+  expect.assertions(1);
+  await facecrop('./test/test-file-1.jpg', {name: './test/output.jpg', type: "image/jpeg", quality: 0.95});
+  return expect(isExists1("./test/output.jpg")).toBeTruthy();
+});
 
-    await facecrop('./test/test-file-2.jpg', {name: './test/output.jpg', type: "image/jpeg", quality: 0.95});
+test('Multiple face detection', async() => {
+  expect.assertions(1);
+  await facecrop('./test/test-file-2.jpg', {name: './test/output.jpg', type: "image/jpeg", quality: 0.95});
+  return expect(isExists2("./test/output-1.jpg", "./test/output-2.jpg")).toBeTruthy();
+});
 
-    fs.stat("./test/output-1.jpg",(err1) => {
-        if (err1 == null){
-            fs.stat("./test/output-2.jpg",(err2) => {
-                if (err2 == null)
-                    console.log('SUCCESS: Second Test Case Passed.');
-                else if(err2.code === 'ENOENT')
-                    console.error(err2 +"\nERROR: File not created. Second Test Case Failed.");
-                else
-                    console.error(err2 +"\nERROR: Second Test Case Failed.");
-            });
-        }            
-        else if(err1.code === 'ENOENT')
-            console.error(err1 +"\nERROR: File not created. Second Test Case Failed.");
-        else
-            console.error(err1 +"\nERROR: Second Test Case Failed.");
-    });
-
+async function isExists1(filename){
+  fs.stat(filename,(err) => {
+    if (err == null)
+        return true;
+    else
+        return false;
+  });
 }
 
-vanessa();
+async function isExists2(file1, file2){
+  fs.stat(file1,(err1) => {
+    if (err1 == null){
+      fs.stat(file2, (err2) => {
+        if(err2 == null)
+          return true;
+        else
+          return false;
+      });
+    }
+    else
+        return false;
+  });
+}
