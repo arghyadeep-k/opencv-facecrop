@@ -4,11 +4,11 @@
   "description": "Npm package to autodetect and crop faces using opencv",
   "main": "index.js",
   "scripts": {
-    "test": "jest --silent"
+    "test": "jest --silent --coverage"
   },
   "jest": {
     "verbose": true,
-    "testTimeout": 120000
+    "testTimeout": 300000
   },
   "repository": {
     "type": "git",
