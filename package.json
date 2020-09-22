@@ -8,7 +8,11 @@
   },
   "jest": {
     "verbose": true,
+    "testPathIgnorePatterns": [
+      "<rootDir>/test" 
+    ],
     "testTimeout": 300000
+    
   },
   "repository": {
     "type": "git",
