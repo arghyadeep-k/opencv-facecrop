@@ -2,16 +2,36 @@ const facecrop = require('../index')
 const fs = require('fs')
 
 async function vanessa(){
-    await facecrop('./test/test-file.jpg', {name: './test/output.jpg', type: "image/jpeg", quality: 0.95 });
-
-    fs.stat("./test/output.jpg",(err,stat) => {
+    await facecrop('./test/test-file-1.jpg', {name: './test/output.jpg', type: "image/jpeg", quality: 0.95});
+    
+    fs.stat("./test/output.jpg",(err) => {
         if (err == null)
-            console.log('SUCCESS: Test Case Passed.');
+            console.log('SUCCESS: First Test Case Passed.');
         else if(err.code === 'ENOENT')
-            console.log(err +"\nERROR: File not created. Test Case Failed.");
+            console.error(err +"\nERROR: File not created. First Test Case Failed.");
         else
-            console.log(err +"\nERROR: Test Case Failed.");
+            console.error(err +"\nERROR: First Test Case Failed.");
     });
+
+    await facecrop('./test/test-file-2.jpg', {name: './test/output.jpg', type: "image/jpeg", quality: 0.95});
+
+    fs.stat("./test/output-1.jpg",(err) => {
+        if (err == null){
+            fs.stat("./test/output-2.jpg",(err) => {
+                if (err == null)
+                    console.log('SUCCESS: Second Test Case Passed.');
+                else if(err.code === 'ENOENT')
+                    console.error(err +"\nERROR: File not created. Second Test Case Failed.");
+                else
+                    console.error(err +"\nERROR: Second Test Case Failed.");
+            });
+        }            
+        else if(err.code === 'ENOENT')
+            console.error(err +"\nERROR: File not created. Second Test Case Failed.");
+        else
+            console.error(err +"\nERROR: Second Test Case Failed.");
+    });
+
 }
 
 vanessa();

@@ -23,7 +23,7 @@ module.exports = async (file, options = { name: "output.jpg", type: "image/jpeg"
   let mSize = new cv.Size(0, 0);
   faceCascade.detectMultiScale(gray, faces, 1.1, 3, 0, mSize, mSize);
   
-  let point1, point2;
+  let point1, point2;  
 
   for (let i = 0; i < faces.size(); ++i) {    
     point1 = new cv.Point(faces.get(i).x, faces.get(i).y);
@@ -31,17 +31,30 @@ module.exports = async (file, options = { name: "output.jpg", type: "image/jpeg"
     
     const canvas = createCanvas(point2.x - point1.x, point2.y - point1.y);
     
-    let dst = new cv.Mat();
     let rect = new cv.Rect(point1.x, point1.y, point2.x - point1.x, point2.y - point1.y);
 
     console.log('Rendering file...')
-    dst = src.roi(rect);
+    let dst = src.roi(rect);
     
     console.log("Source File dimension: " + src.size().width + "x" + src.size().height);
     console.log("Destination File dimension: " + dst.size().width + "x" + dst.size().height);
         
     cv.imshow(canvas, dst);    
-    writeFileSync(options['name'], canvas.toBuffer(options['type'],{ quality: options['quality'] }));
+    
+    let name = options['name'].toString();
+
+    if(faces.size() > 1){
+      if(name.charAt(name.length - 4) == '.'){
+        name = name.substr(0, (name.length - 4)) + `-${i+1}` + name.substr((name.length - 4), 4);        
+      }
+      else {
+        console.error('ERROR: File extension should be 3 characters only.');
+        return
+      }
+    }
+
+    writeFileSync(name, canvas.toBuffer(options['type'],{ quality: options['quality'] }));    
+    console.log(name + " created successfully.");
   }  
   src.delete(); gray.delete(); faceCascade.delete(); faces.delete(); 
 };
