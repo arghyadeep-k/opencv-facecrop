@@ -23,24 +23,22 @@ test('Invalid output extension', async() => {
 });
 
 async function isExists1(filename){
-  fs.stat(filename,(err) => {
-    err == null ? true : false;
-    // if (err == null)
-    //     return true;
-    // else
-    //     return false;
+  fs.stat(filename,(err) => {    
+    if (err == null)
+        return true;
+    else
+        return false;
   });
 }
 
 async function isExists2(file1, file2){
   fs.stat(file1,(err1) => {
     if (err1 == null){
-      fs.stat(file2, (err2) => {
-        err2 == null ? true : false;
-        // if(err2 == null)
-        //   return true;
-        // else
-        //   return false;
+      fs.stat(file2, (err2) => {        
+        if(err2 == null)
+          return true;
+        else
+          return false;
       });
     }
     else
