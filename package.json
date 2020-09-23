@@ -8,8 +8,8 @@
   },
   "jest": {
     "verbose": true,
-    "testPathIgnorePatterns": [
-      "<rootDir>/test" 
+    "collectCoverageFrom": [
+      "<rootDir>/*.js"
     ],
     "testTimeout": 300000
     
