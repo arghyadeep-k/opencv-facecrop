@@ -27,15 +27,17 @@ This package helps you to auto-detect faces in a picture and crop them out.
 ```javascript
 const facecrop = require('opencv-facecrop');
 
-facecrop('./image-file.jpg', {name: 'output.jpg', type: "image/jpeg", quality: 0.95 })
+facecrop('./image-file.jpg', {name: './dest/output.jpg', type: "image/jpeg", quality: 0.95 })
 
-//Outputs image named output.jpg with only face cropped out in root folder
+/* Outputs image with file name output.jpg in 'dest' folder with the face cropped out.
+* If multiple faces are detected, the files will be automatically renamed to output-1.jpg, output-2.jpg and so on.
+*/
 ```
 
 ## API
-**vanes(input_filename, {name: String, type: String, quality: float})**
+**facecrop(input_filename, {name: String, type: String, quality: float})**
 
-- **input_filename**: input String containing file name with relative/absolute filepath
+- **input_filename**: Input String containing file name with relative/absolute filepath.
 
 - **name**: Requires a string value which will contains the output file name.
 
@@ -43,7 +45,6 @@ facecrop('./image-file.jpg', {name: 'output.jpg', type: "image/jpeg", quality: 0
 
 - **quality**: Requires a float value between 0 to 1 which stands for the quality index of the output file compares to the input file. Set 1 for no reduction in quality.
 
-Multiple key-value pairs can be sent separated by comma.
 
 <!-- ## Defaults -->
 
