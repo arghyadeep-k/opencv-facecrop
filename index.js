@@ -48,8 +48,7 @@ module.exports = async (file, options = { name: "output.jpg", type: "image/jpeg"
         name = name.substr(0, (name.length - 4)) + `-${i+1}` + name.substr((name.length - 4), 4);        
       }
       else {
-        console.error('ERROR: File extension should be 3 characters only.');
-        return
+        throw new Error('ERROR: File extension should be 3 characters only.');
       }
     }
 
