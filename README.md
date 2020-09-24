@@ -27,10 +27,11 @@ This package helps you to auto-detect faces in a picture and crop them out.
 ```javascript
 const facecrop = require('opencv-facecrop');
 
-facecrop('./image-file.jpg', {name: './dest/output.jpg', type: "image/jpeg", quality: 0.95 })
+facecrop('./image-file.jpg', {name: './dest/output.jpg', type: "image/jpeg", quality: 0.95})
 
 /* Outputs image with file name output.jpg in 'dest' folder with the face cropped out.
-* If multiple faces are detected, the files will be automatically renamed to output-1.jpg, output-2.jpg and so on.
+
+If multiple faces are detected, the files will be automatically renamed to output-1.jpg, output-2.jpg and so on.
 */
 ```
 

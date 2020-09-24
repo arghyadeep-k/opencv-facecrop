@@ -99,7 +99,7 @@ function loadOpenCV(rootDir = '/work', localRootDir = process.cwd()) {
         FS.mount(FS.filesystems.NODEFS, { root: localRootDir}, rootDir);
       }
     };
-    global.cv = require('./resources/opencv.js')
+    global.cv = require('opencv4js')
   });
 }
 function installDOM(){

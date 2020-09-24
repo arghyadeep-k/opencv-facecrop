@@ -4,7 +4,7 @@
   "description": "Npm package to autodetect and crop faces using opencv",
   "main": "index.js",
   "scripts": {
-    "test": "jest --silent --coverage"
+    "test": "jest --coverage"
   },
   "jest": {
     "verbose": true,
@@ -12,7 +12,6 @@
       "<rootDir>/*.js"
     ],
     "testTimeout": 300000
-    
   },
   "repository": {
     "type": "git",
@@ -36,7 +35,8 @@
   "dependencies": {
     "canvas": "^2.6.1",
     "fs": "0.0.1-security",
-    "jsdom": "^16.4.0"
+    "jsdom": "^16.4.0",
+    "opencv4js": "0.0.1"
   },
   "devDependencies": {
     "jest": "^26.4.2"
