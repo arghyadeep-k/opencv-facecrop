@@ -27,7 +27,7 @@ This package helps you to auto-detect faces in a picture and crop them out.
 ```javascript
 const facecrop = require('opencv-facecrop');
 
-facecrop('./image-file.jpg', {name: './dest/output.jpg', type: "image/jpeg", quality: 0.95})
+facecrop('./image-file.jpg', './dest/output.jpg', "image/jpeg", 0.95);
 
 /* Outputs image with file name output.jpg in 'dest' folder with the face cropped out.
 
@@ -35,12 +35,25 @@ If multiple faces are detected, the files will be automatically renamed to outpu
 */
 ```
 
+## Results
+
+Original Image:
+
+<img src="https://github.com/arghyadeep-k/resources/raw/master/opencv-facecrop_test-file-1.jpg">
+
+<br><br>
+Cropped Image:
+
+<img src="https://github.com/arghyadeep-k/resources/raw/master/opencv-facecrop_test-file-1-output.jpg" width=250px>
+
+Image by <a href="https://pixabay.com/photos/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=919048">Free-Photos</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=919048">Pixabay</a>
+
 ## API
-**facecrop(input_filename, {name: String, type: String, quality: float})**
+**facecrop(input_filename, output_filename, type, quality)**
 
 - **input_filename**: Input String containing file name with relative/absolute filepath.
 
-- **name**: Requires a string value which will contains the output file name.
+- **output_filename**: Requires a string value which will contains the output file name.
 
 - **type**: Requires String value which will tell the format of the output image.
 

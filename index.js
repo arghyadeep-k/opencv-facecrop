@@ -4,7 +4,7 @@ const { writeFileSync, existsSync, readFileSync } = require('fs');
 
 
 
-module.exports = async (file, options = { name: "output.jpg", type: "image/jpeg", quality: 0.95 }) => {
+module.exports = async (file, name="output.jpg", type="image/jpeg", quality=0.95, trainingSet = "./node_modules/opencv-facecrop/resources/haarcascade_frontalface_default.xml") => {
   await loadOpenCV();
   console.log("Loading file...")
   const image = await loadImage(file);
@@ -17,7 +17,7 @@ module.exports = async (file, options = { name: "output.jpg", type: "image/jpeg"
   // Load pre-trained classifier files. Notice how we reference local files using relative paths just
   // like we normally would do
   console.log("Loading pre-trained classifier files...");
-  faceCascade.load('./resources/haarcascade_frontalface_default.xml');
+  faceCascade.load(trainingSet);
 
   console.log("Processing...")
   let mSize = new cv.Size(0, 0);
@@ -41,19 +41,19 @@ module.exports = async (file, options = { name: "output.jpg", type: "image/jpeg"
         
     cv.imshow(canvas, dst);    
     
-    let name = options['name'].toString();
+    let outputFilename = name.toString();
 
     if(faces.size() > 1){
-      if(name.charAt(name.length - 4) == '.'){
-        name = name.substr(0, (name.length - 4)) + `-${i+1}` + name.substr((name.length - 4), 4);        
+      if(outputFilename.charAt(outputFilename.length - 4) == '.'){
+        outputFilename = outputFilename.substr(0, (outputFilename.length - 4)) + `-${i+1}` + outputFilename.substr((outputFilename.length - 4), 4);        
       }
       else {
         throw new Error('ERROR: File extension should be 3 characters only.');
       }
     }
 
-    writeFileSync(name, canvas.toBuffer(options['type'],{ quality: options['quality'] }));    
-    console.log(name + " created successfully.");
+    writeFileSync(outputFilename, canvas.toBuffer(type,{ quality: quality }));    
+    console.log(outputFilename + " created successfully.");
   }  
   src.delete(); gray.delete(); faceCascade.delete(); faces.delete(); 
 };
