@@ -1,2 +1,5 @@
 # Unit Testing
 test
+
+# Sonar Properties
+sonar-project.properties

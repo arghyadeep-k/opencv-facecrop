@@ -1,61 +1,72 @@
 const { Canvas, createCanvas, Image, ImageData, loadImage } = require('canvas');
 const { JSDOM } = require('jsdom');
-const { writeFileSync, existsSync, readFileSync } = require('fs');
+const { writeFileSync, existsSync, stat, statSync } = require('fs');
+const { exception } = require('console');
 
 
 
-module.exports = async (file, name="output.jpg", type="image/jpeg", quality=0.95, trainingSet = "./node_modules/opencv-facecrop/resources/haarcascade_frontalface_default.xml") => {
-  await loadOpenCV();
-  console.log("Loading file...")
-  const image = await loadImage(file);
-  const src = cv.imread(image);
-  let gray = new cv.Mat();
-  cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY, 0);
-  let faces = new cv.RectVector();
-  let faceCascade = new cv.CascadeClassifier();
-
-  // Load pre-trained classifier files. Notice how we reference local files using relative paths just
-  // like we normally would do
-  console.log("Loading pre-trained classifier files...");
-  faceCascade.load(trainingSet);
-
-  console.log("Processing...")
-  let mSize = new cv.Size(0, 0);
-  faceCascade.detectMultiScale(gray, faces, 1.1, 3, 0, mSize, mSize);
-  
-  let point1, point2;  
-
-  for (let i = 0; i < faces.size(); ++i) {    
-    point1 = new cv.Point(faces.get(i).x, faces.get(i).y);
-    point2 = new cv.Point(faces.get(i).x + faces.get(i).width, faces.get(i).y + faces.get(i).height);  
+module.exports = async (file, name="output.jpg", type="image/jpeg", quality=0.95, trainingSet = "./node_modules/opencv-facecrop/resources/haarcascade_frontalface_default.xml") => {  
+    await loadOpenCV();
+    console.log("Loading file...")
+    const image = await loadImage(file);
+    const src = cv.imread(image);
+    let gray = new cv.Mat();
+    cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY, 0);
+    let faces = new cv.RectVector();
+    let faceCascade = new cv.CascadeClassifier();
+  try{
+    console.log("Loading pre-trained classifier files...");
     
-    const canvas = createCanvas(point2.x - point1.x, point2.y - point1.y);
-    
-    let rect = new cv.Rect(point1.x, point1.y, point2.x - point1.x, point2.y - point1.y);
+    statSync(trainingSet, (err) => {
+      if(err != null)
+        throw err;
+    });
 
-    console.log('Rendering file...')
-    let dst = src.roi(rect);
-    
-    console.log("Source File dimension: " + src.size().width + "x" + src.size().height);
-    console.log("Destination File dimension: " + dst.size().width + "x" + dst.size().height);
-        
-    cv.imshow(canvas, dst);    
-    
-    let outputFilename = name.toString();
+    faceCascade.load(trainingSet);
 
-    if(faces.size() > 1){
-      if(outputFilename.charAt(outputFilename.length - 4) == '.'){
-        outputFilename = outputFilename.substr(0, (outputFilename.length - 4)) + `-${i+1}` + outputFilename.substr((outputFilename.length - 4), 4);        
+    console.log("Processing...")
+    let mSize = new cv.Size(0, 0);
+    faceCascade.detectMultiScale(gray, faces, 1.1, 3, 0, mSize, mSize);
+    
+    let point1, point2;  
+
+    for (let i = 0; i < faces.size(); ++i) {    
+      point1 = new cv.Point(faces.get(i).x, faces.get(i).y);
+      point2 = new cv.Point(faces.get(i).x + faces.get(i).width, faces.get(i).y + faces.get(i).height);  
+      
+      const canvas = createCanvas(point2.x - point1.x, point2.y - point1.y);
+      
+      let rect = new cv.Rect(point1.x, point1.y, point2.x - point1.x, point2.y - point1.y);
+
+      console.log('Rendering file...')
+      let dst = src.roi(rect);
+      
+      console.log("Source File dimension: " + src.size().width + "x" + src.size().height);
+      console.log("Destination File dimension: " + dst.size().width + "x" + dst.size().height);
+          
+      cv.imshow(canvas, dst);    
+      
+      let outputFilename = name.toString();
+
+      if(faces.size() > 1){
+        if(outputFilename.charAt(outputFilename.length - 4) == '.'){
+          outputFilename = outputFilename.substr(0, (outputFilename.length - 4)) + `-${i+1}` + outputFilename.substr((outputFilename.length - 4), 4);        
+        }
+        else {
+          throw new Error('File extension should be 3 characters only.');
+        }
       }
-      else {
-        throw new Error('ERROR: File extension should be 3 characters only.');
-      }
-    }
 
-    writeFileSync(outputFilename, canvas.toBuffer(type,{ quality: quality }));    
-    console.log(outputFilename + " created successfully.");
-  }  
-  src.delete(); gray.delete(); faceCascade.delete(); faces.delete(); 
+      writeFileSync(outputFilename, canvas.toBuffer(type,{ quality: quality }));    
+      console.log(outputFilename + " created successfully.");
+    }      
+  }
+  catch(e){
+    throw e;
+  }
+  finally{
+    src.delete(); gray.delete(); faceCascade.delete(); faces.delete(); 
+  }
 };
 
 /**

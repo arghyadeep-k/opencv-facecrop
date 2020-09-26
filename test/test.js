@@ -13,13 +13,16 @@ test('Multiple face detection', async() => {
   return expect(isExists2("./test/output-1.jpg", "./test/output-2.jpg")).toBeTruthy();
 });
 
+test('Invalid training set path',  async() => {
+    await expect(facecrop('./test/test-file-1.jpg', './test/out.jpg', "image/jpeg", 0.95))
+    .rejects
+    .toThrow("no such file or directory, stat './node_modules/opencv-facecrop/resources/haarcascade_frontalface_default.xml'");
+});
+
 test('Invalid output extension', async() => {  
-  try{
-    await facecrop('./test/test-file-2.jpg', './test/output.jpeg', "image/jpeg", 0.95, './resources/haarcascade_frontalface_default.xml');
-  }
-  catch(e){
-    expect(e.toString()).toMatch("ERROR: File extension should be 3 characters only.")
-  }
+  await expect(facecrop('./test/test-file-2.jpg', './test/output.jpeg', "image/jpeg", 0.95, './resources/haarcascade_frontalface_default.xml'))
+    .rejects
+    .toThrow("File extension should be 3 characters only.")
 });
 
 async function isExists1(filename){
