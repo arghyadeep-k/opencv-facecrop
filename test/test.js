@@ -3,13 +3,13 @@ const fs = require('fs')
 
 test('Single face detection', async() => {
   expect.assertions(1);
-  await facecrop('./test/test-file-1.jpg', './test/output.jpg', "image/jpeg", 0.95, './resources/haarcascade_frontalface_default.xml');
+  await facecrop('./test/test-file-1.jpg', './test/output.jpg', "image/jpeg", 0.95, 100, './resources/haarcascade_frontalface_default.xml');
   return expect(isExists1("./test/output.jpg")).toBeTruthy();
 });
 
 test('Multiple face detection', async() => {
   expect.assertions(1);
-  await facecrop('./test/test-file-2.jpg', './test/output.jpg', "image/jpeg", 0.95, './resources/haarcascade_frontalface_default.xml');
+  await facecrop('./test/test-file-2.jpg', './test/output.jpg', "image/jpeg", 0.95, 0, './resources/haarcascade_frontalface_default.xml');
   return expect(isExists2("./test/output-1.jpg", "./test/output-2.jpg")).toBeTruthy();
 });
 
@@ -20,7 +20,7 @@ test('Invalid training set path',  async() => {
 });
 
 test('Invalid output extension', async() => {  
-  await expect(facecrop('./test/test-file-2.jpg', './test/output.jpeg', "image/jpeg", 0.95, './resources/haarcascade_frontalface_default.xml'))
+  await expect(facecrop('./test/test-file-2.jpg', './test/output.jpeg', "image/jpeg", 0.95, 0, './resources/haarcascade_frontalface_default.xml'))
     .rejects
     .toThrow("File extension should be 3 characters only.")
 });

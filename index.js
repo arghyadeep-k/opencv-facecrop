@@ -5,16 +5,24 @@ const { exception } = require('console');
 
 
 
-module.exports = async (file, name="output.jpg", type="image/jpeg", quality=0.95, trainingSet = "./node_modules/opencv-facecrop/resources/haarcascade_frontalface_default.xml") => {  
-    await loadOpenCV();
+module.exports = async (file, name="output.jpg", type="image/jpeg", quality=0.95, factor=0, trainingSet = "./node_modules/opencv-facecrop/resources/haarcascade_frontalface_default.xml") => {  
+    // await loadOpenCV();  
+    let image;
+    let src;
+    let gray;
+    // cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY, 0);
+    let faces;
+    let faceCascade;
+  try{  
+    await loadOpenCV();  
     console.log("Loading file...")
-    const image = await loadImage(file);
-    const src = cv.imread(image);
-    let gray = new cv.Mat();
+    image = await loadImage(file)    
+    src = cv.imread(image);
+    gray = new cv.Mat();
     cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY, 0);
-    let faces = new cv.RectVector();
-    let faceCascade = new cv.CascadeClassifier();
-  try{
+    faces = new cv.RectVector();
+    faceCascade = new cv.CascadeClassifier();
+
     console.log("Loading pre-trained classifier files...");
     
     statSync(trainingSet, (err) => {
@@ -28,12 +36,18 @@ module.exports = async (file, name="output.jpg", type="image/jpeg", quality=0.95
     let mSize = new cv.Size(0, 0);
     faceCascade.detectMultiScale(gray, faces, 1.1, 3, 0, mSize, mSize);
     
-    let point1, point2;  
+    let point1, point2; 
 
     for (let i = 0; i < faces.size(); ++i) {    
       point1 = new cv.Point(faces.get(i).x, faces.get(i).y);
-      point2 = new cv.Point(faces.get(i).x + faces.get(i).width, faces.get(i).y + faces.get(i).height);  
-      
+      point2 = new cv.Point(faces.get(i).x + faces.get(i).width, faces.get(i).y + faces.get(i).height);       
+
+      point1.x = point1.x - factor;
+      point1.y = point1.y - factor;
+
+      point2.x = point2.x + factor;
+      point2.y = point2.y + factor;
+
       const canvas = createCanvas(point2.x - point1.x, point2.y - point1.y);
       
       let rect = new cv.Rect(point1.x, point1.y, point2.x - point1.x, point2.y - point1.y);
@@ -62,6 +76,7 @@ module.exports = async (file, name="output.jpg", type="image/jpeg", quality=0.95
     }      
   }
   catch(e){
+    console.error(e.message);
     throw e;
   }
   finally{
