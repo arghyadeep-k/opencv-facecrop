@@ -104,6 +104,7 @@ dist
 .tern-port
 
 # Generated Test files
+out.jpg
 output.jpg 
 output-1.jpg
 output-2.jpg
