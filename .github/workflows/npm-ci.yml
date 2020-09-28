@@ -28,17 +28,17 @@ jobs:
         
       - id: testing
         name: Testing
-        run: npm test
-      
-      #- id: sonarScan
-      #  name: Code Quality Scan
-      #  uses: SonarSource/sonarcloud-github-action@v1.4
-      #  env:
-      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #    SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: npm test     
           
       - id: codecovScan
         name: Code Coverage Scan    
         uses: codecov/codecov-action@v1.0.13
         with:      
           fail_ci_if_error: true
+      
+      - id: sonarScan
+        name: Code Quality Scan
+        uses: SonarSource/sonarcloud-github-action@v1.4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
