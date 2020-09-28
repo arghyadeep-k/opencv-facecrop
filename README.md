@@ -2,6 +2,7 @@
 
 ![CI](https://github.com/arghyadeep-k/opencv-facecrop/workflows/CI/badge.svg?branch=master)
 ![codecov.io](https://codecov.io/github/arghyadeep-k/opencv-facecrop/coverage.svg?branch=master)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=arghyadeep-k_opencv-facecrop&metric=alert_status)](https://sonarcloud.io/dashboard?id=arghyadeep-k_opencv-facecrop)
 ![npm](https://img.shields.io/npm/v/opencv-facecrop)
 ![npm bundle size](https://img.shields.io/bundlephobia/min/opencv-facecrop)
 ![Libraries.io SourceRank](https://img.shields.io/librariesio/sourcerank/npm/opencv-facecrop)
@@ -29,7 +30,8 @@ const facecrop = require('opencv-facecrop');
 
 facecrop('./image-file.jpg', './dest/output.jpg', "image/jpeg", 0.95, 50);
 
-/* Outputs image with file name output.jpg in 'dest' folder with the face cropped out.
+/* 
+Outputs image with file name output.jpg in 'dest' folder with the face cropped out.
 
 If multiple faces are detected, the files will be automatically renamed to output-1.jpg, output-2.jpg and so on.
 */
@@ -69,6 +71,8 @@ Image by <a href="https://pixabay.com/photos/?utm_source=link-attribution&amp;ut
  - **quality**: 0.95
  - **factor**: 0
 
+## Changelogs:
+To view the changelogs, please refer to the <a href="https://github.com/arghyadeep-k/opencv-facecrop/releases">Github Releases page</a> of this project.
 
 ## License
 
