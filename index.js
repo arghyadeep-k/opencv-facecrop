@@ -8,7 +8,7 @@ module.exports = async (file, name = "output.jpg", type = "image/jpeg", quality 
   let image, src, gray, faces, faceCascade;
   try {
     await loadOpenCV().catch((e) => { throw new Error("Error: Loading OpenCV failed.\n" + e.message) });
-    console.log("Loading file...");
+    // console.log("Loading file...");
     image = await loadImage(file)
       .catch((e) => { throw new Error("Error: Loading input image failed.\n" + e.message) });
     if (image != null)
@@ -18,7 +18,7 @@ module.exports = async (file, name = "output.jpg", type = "image/jpeg", quality 
     faces = new cv.RectVector();
     faceCascade = new cv.CascadeClassifier();
 
-    console.log("Loading pre-trained classifier files...");
+    // console.log("Loading pre-trained classifier files...");
 
     try {
       statSync(trainingSet);
@@ -29,7 +29,7 @@ module.exports = async (file, name = "output.jpg", type = "image/jpeg", quality 
 
     faceCascade.load(trainingSet);
 
-    console.log("Processing...")
+    console.log("Processing...");
     let mSize = new cv.Size(0, 0);
     faceCascade.detectMultiScale(gray, faces, 1.1, 3, 0, mSize, mSize);
 
