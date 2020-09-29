@@ -61,7 +61,7 @@ Image by <a href="https://pixabay.com/photos/?utm_source=link-attribution&amp;ut
 
 - **quality**: (Optional) Requires a float value between 0 to 1 which stands for the quality index of the output file compares to the input file. Set 1 for no reduction in quality.
 
-- **factor**: (Optional) Pixels by which the area of cropping of the face should be increased to add more details. Use -ve value to decrease.
+- **factor**: (Optional) Factor by which the area of cropping of the face should be increased to add more details. Use -ve value to decrease.
 
 ## Defaults 
 
@@ -69,7 +69,7 @@ Image by <a href="https://pixabay.com/photos/?utm_source=link-attribution&amp;ut
  - **output_filename**: "./output.jpg"
  - **type**: 'image/jpeg'
  - **quality**: 0.95
- - **factor**: 0
+ - **factor**: 1
 
 ## Changelogs:
 To view the changelogs, please refer to the <a href="https://github.com/arghyadeep-k/opencv-facecrop/releases">Github Releases page</a> of this project.
