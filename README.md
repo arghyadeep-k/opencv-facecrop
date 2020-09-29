@@ -28,7 +28,7 @@ This package helps you to auto-detect faces in a picture and crop them out.
 ```javascript
 const facecrop = require('opencv-facecrop');
 
-facecrop('./image-file.jpg', './dest/output.jpg', "image/jpeg", 0.95, 50);
+facecrop('./image-file.jpg', './dest/output.jpg', "image/jpeg", 0.95, 1.5);
 
 /* 
 Outputs image with file name output.jpg in 'dest' folder with the face cropped out.
@@ -42,15 +42,17 @@ If multiple faces are detected, the files will be automatically renamed to outpu
 Original Image:
 
 <img src="https://github.com/arghyadeep-k/resources/raw/master/opencv-facecrop_test-file-1.jpg">
+<small>Image by <a href="https://pixabay.com/photos/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=919048">Free-Photos</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=919048">Pixabay</a></small>
 
-<br><br>
+<br>
+
 Cropped Image:
 
 <img src="https://github.com/arghyadeep-k/resources/raw/master/opencv-facecrop_test-file-1-output.jpg" width=250px>
 
-Image by <a href="https://pixabay.com/photos/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=919048">Free-Photos</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=919048">Pixabay</a>
 
 ## API
+
 **facecrop(input_filename, output_filename, type, quality, factor)**
 
 - **input_filename**: Input String containing file name with relative/absolute filepath.
@@ -61,7 +63,7 @@ Image by <a href="https://pixabay.com/photos/?utm_source=link-attribution&amp;ut
 
 - **quality**: (Optional) Requires a float value between 0 to 1 which stands for the quality index of the output file compares to the input file. Set 1 for no reduction in quality.
 
-- **factor**: (Optional) Factor by which the area of cropping of the face should be increased to add more details. Use -ve value to decrease.
+- **factor**: (Optional) Scaling Factor by which the area of cropping of the face can be increased/decreased to add more details. Must be greater than 0.
 
 ## Defaults 
 

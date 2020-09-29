@@ -7,6 +7,9 @@ const { writeFileSync, existsSync, statSync } = require('fs');
 module.exports = async (file, name = "output.jpg", type = "image/jpeg", quality = 0.95, factor = 1, trainingSet = "./node_modules/opencv-facecrop/resources/haarcascade_frontalface_default.xml") => {
   let image, src, gray, faces, faceCascade;
   try {
+    if (factor <= 0)
+        throw new Error('Error: Scaling Factor passed is too low, should be greater than 0.');
+
     await loadOpenCV().catch((e) => { throw new Error("Error: Loading OpenCV failed.\n" + e.message) });
     // console.log("Loading file...");
     image = await loadImage(file)
@@ -36,10 +39,10 @@ module.exports = async (file, name = "output.jpg", type = "image/jpeg", quality 
     let point1, point2;
 
     for (let i = 0; i < faces.size(); ++i) {
-      if( i < (faces.size() -1 ) ){
-        continue;
-        //only use last image
-      }
+    //   if( i < (faces.size() -1 ) ){
+    //     continue;
+    //     //only use last image
+    //   }
       point1 = new cv.Point(faces.get(i).x, faces.get(i).y);
       point2 = new cv.Point(faces.get(i).x + faces.get(i).width, faces.get(i).y + faces.get(i).height);
 
@@ -74,10 +77,7 @@ module.exports = async (file, name = "output.jpg", type = "image/jpeg", quality 
       point2.x = point2.x + offset;
       point2.y = point2.y + offset;
 
-      // console.log([point1,point2]);
-
-      if (point1.x < 0 || point1.y < 0 || point2.x < 0 || point2.y < 0)
-        throw new Error('Error: Factor passed is too high/low.');
+      // console.log([point1,point2]);      
 
       const canvas = createCanvas(point2.x - point1.x, point2.y - point1.y);
 
@@ -93,12 +93,10 @@ module.exports = async (file, name = "output.jpg", type = "image/jpeg", quality 
 
       let outputFilename = name.toString();
 
-      // if (faces.size() > 1) {
-      //   if (outputFilename.charAt(outputFilename.length - 4) == '.')
-      //     outputFilename = outputFilename.substr(0, (outputFilename.length - 4)) + `-${i + 1}` + outputFilename.substr((outputFilename.length - 4), 4);
-      //   else
-      //     throw new Error('Error: File extension should be 3 characters only.');
-      // }
+      if (faces.size() > 1) {
+        let name = outputFilename.replace(/\.[^/.]+$/, "");
+        outputFilename = outputFilename.replace(name, name + `-${i+1}`);        
+      }
 
       writeFileSync(outputFilename, canvas.toBuffer(type, { quality: quality }));
       console.log(outputFilename + " created successfully.");
