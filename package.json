@@ -35,7 +35,7 @@
   "dependencies": {
     "canvas": "^2.6.1",
     "fs": "0.0.1-security",
-    "jsdom": "^16.4.0",
+    "jsdom": "^16.5.3",
     "opencv4js": "0.0.1"
   },
   "devDependencies": {
