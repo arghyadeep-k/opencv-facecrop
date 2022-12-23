@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/arghyadeep-k/opencv-facecrop#readme",
   "dependencies": {
-    "canvas": "^2.8.0",
+    "canvas": "^2.11.0",
     "fs": "0.0.1-security",
     "jsdom": "^16.6.0",
     "opencv4js": "0.0.1"
