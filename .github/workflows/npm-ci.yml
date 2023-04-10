@@ -7,6 +7,7 @@ on:
   push:
     branches: 
       - master
+      - dev
 
 jobs:
   TestAndScan:
@@ -21,6 +22,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12
+
+      - id: canvasDepsSetup
+        name: Node-Canvas Deps Setup
+        run: apt update && apt install -y build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
 
       - id: dependenciesInstallation
         name: Dependencies Installation
