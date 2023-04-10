@@ -27,9 +27,9 @@ jobs:
         with:
           node-version: 12
 
-      - id: canvasDepsSetup
-        name: Node-Canvas Deps Setup
-        run: sudo apt-get update && sudo apt-get install -y build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+      - id: canvasSetup
+        name: Node-Canvas Setup
+        run: sudo apt-get update && sudo apt-get install -y build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev && npm i canvas
 
       - id: dependenciesInstallation
         name: Dependencies Installation
