@@ -3,13 +3,28 @@
   "version": "0.0.5",
   "description": "Npm package to autodetect and crop faces using opencv",
   "main": "index.js",
+  "files": [
+    "index.js",
+    "resources/"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
-    "test": "jest --silent --coverage"
+    "test": "jest --silent --coverage",
+    "lint": "eslint .",
+    "format": "prettier --write ."
   },
   "jest": {
     "verbose": true,
     "collectCoverageFrom": [
-      "<rootDir>/*.js"
+      "<rootDir>/index.js"
+    ],
+    "transform": {
+      "^.+\\.(js|mjs|cjs)$": "babel-jest"
+    },
+    "transformIgnorePatterns": [
+      "/node_modules/(?!(@asamuzakjp|@csstools|@exodus|css-tree|entities|parse5|tough-cookie)/)"
     ],
     "testTimeout": 300000
   },
@@ -33,12 +48,18 @@
   },
   "homepage": "https://github.com/arghyadeep-k/opencv-facecrop#readme",
   "dependencies": {
-    "canvas": "^2.11.2",
-    "fs": "0.0.1-security",
-    "jsdom": "^16.6.0",
+    "canvas": "^3.2.3",
+    "jsdom": "~27.3.0",
     "opencv4js": "0.0.1"
   },
   "devDependencies": {
-    "jest": "^26.4.2"
+    "@babel/core": "^8.0.1",
+    "@babel/preset-env": "^8.0.2",
+    "@eslint/js": "^10.0.1",
+    "babel-jest": "^30.4.1",
+    "eslint": "^10.5.0",
+    "eslint-config-prettier": "^10.1.8",
+    "jest": "^30.4.2",
+    "prettier": "^3.8.4"
   }
 }

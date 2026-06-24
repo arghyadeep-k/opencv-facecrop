@@ -11,7 +11,6 @@
 ![npm](https://img.shields.io/npm/dt/opencv-facecrop)
 ![NPM](https://img.shields.io/npm/l/opencv-facecrop?color=blue)
 
-
 This package helps you to auto-detect faces in a picture and crop them out.
 
 ## Installation
@@ -22,13 +21,12 @@ This package helps you to auto-detect faces in a picture and crop them out.
 
 `npm install --save opencv-facecrop`
 
-
-
 ## Basic Usage
+
 ```javascript
 const facecrop = require('opencv-facecrop');
 
-facecrop('./image-file.jpg', './dest/output.jpg', "image/jpeg", 0.95, 1.5);
+facecrop('./image-file.jpg', './dest/output.jpg', 'image/jpeg', 0.95, 1.5);
 
 /* 
 Outputs image with file name output.jpg in 'dest' folder with the face cropped out.
@@ -50,10 +48,9 @@ Cropped Image:
 
 <img src="https://github.com/arghyadeep-k/resources/raw/master/opencv-facecrop_test-file-1-output.jpg" width=250px>
 
-
 ## API
 
-**facecrop(input_filename, output_filename, type, quality, factor)**
+**facecrop(input_filename, output_filename, type, quality, factor, training_set, verbose)**
 
 - **input_filename**: Input String containing file name with relative/absolute filepath.
 
@@ -65,20 +62,27 @@ Cropped Image:
 
 - **factor**: (Optional) Scaling Factor by which the area of cropping of the face can be increased/decreased to add more details. Must be greater than 0.
 
-## Defaults 
+- **training_set**: (Optional) Path to a Haar cascade classifier XML file. Defaults to the frontal-face classifier bundled with this package, which is resolved automatically regardless of where the package is installed.
 
- - **input_filename**: Mandatory parameter
- - **output_filename**: "./output.jpg"
- - **type**: 'image/jpeg'
- - **quality**: 0.95
- - **factor**: 1
+- **verbose**: (Optional) Boolean. When `true`, progress and error details are printed to the console. Defaults to `false` so the library stays silent when imported.
+
+## Defaults
+
+- **input_filename**: Mandatory parameter
+- **output_filename**: "./output.jpg"
+- **type**: 'image/jpeg'
+- **quality**: 0.95
+- **factor**: 1
+- **training_set**: Bundled `haarcascade_frontalface_default.xml`
+- **verbose**: false
 
 ## Changelogs:
+
 To view the changelogs, please refer to the <a href="https://github.com/arghyadeep-k/opencv-facecrop/releases">Github Releases page</a> of this project.
 
 ## License
 
-OpenCv - Face Crop is published under the Unlicense. For more information, see the accompanying LICENSE file. 
+OpenCv - Face Crop is published under the Unlicense. For more information, see the accompanying LICENSE file.
 
 <br>
 

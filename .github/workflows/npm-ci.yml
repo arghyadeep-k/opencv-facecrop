@@ -1,45 +1,49 @@
-# This workflow installs dependencies, runs tests and scans Code Quality using SonarCloud. 
+# This workflow installs dependencies, runs tests and scans Code Quality using SonarCloud.
 # Runs whenever a commit is pushed to the master branch.
 
 name: CI
 
 on:
   push:
-    branches: 
+    branches:
       - master
       - dev
   pull_request:
-    branches: 
-      - main 
-    
+    branches:
+      - main
+
 jobs:
   TestAndScan:
     runs-on: ubuntu-latest
     steps:
       - id: codeCheckout
-        name: Code Checkout  
-        uses: actions/checkout@v3
-      
+        name: Code Checkout
+        uses: actions/checkout@v4
+
       - id: nodeSetup
         name: Node.js Setup
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
 
       - id: dependenciesInstallation
         name: Dependencies Installation
         run: npm ci
-        
+
+      - id: linting
+        name: Linting
+        run: npm run lint
+
       - id: testing
         name: Testing
-        run: npm test     
-          
+        run: npm test
+
       - id: codecovScan
-        name: Code Coverage Scan    
-        uses: codecov/codecov-action@v1.0.13
-        with:      
+        name: Code Coverage Scan
+        uses: codecov/codecov-action@v4
+        with:
           fail_ci_if_error: true
-      
+
       - id: sonarScan
         name: Code Quality Scan
         uses: SonarSource/sonarcloud-github-action@master
